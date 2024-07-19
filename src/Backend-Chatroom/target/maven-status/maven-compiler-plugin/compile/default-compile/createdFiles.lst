@@ -1,0 +1,6 @@
+bc\Message.class
+bc\ChatServer.class
+bc\Database.class
+bc\ChatService.class
+bc\MessageDAO.class
+bc\OpenAIClient.class

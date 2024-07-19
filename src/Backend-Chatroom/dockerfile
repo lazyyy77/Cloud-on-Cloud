@@ -1,0 +1,16 @@
+# dockerfile of bsr1
+# 使用官方 OpenJDK 21 JRE 镜像作为基础镜像
+FROM openjdk:21-jdk-slim
+
+# 将编译好的 JAR 文件复制到容器中
+COPY /target/Backend-Chatroom-1.0-SNAPSHOT.jar /backend-1.0-SNAPSHOT.jar
+
+ENV SQL-URL=jdbc:mysql://m-svc:3306/weather
+ENV SQL-USR=root
+ENV SQL-PWD=12345678
+
+# 运行 JAR 文件
+ENTRYPOINT ["java", "-jar", "/backend-1.0-SNAPSHOT.jar"]
+
+# 暴露端口 8000
+EXPOSE 8887
