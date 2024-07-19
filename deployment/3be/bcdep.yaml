@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bc-dep
+spec:
+  # replicas: 1
+  selector:
+    matchLabels:
+      app: backend-chatbox
+  template:
+    metadata:
+      labels:
+        app: backend-chatbox
+    spec:
+      nodeSelector:
+        nodegroup: BackEndGroup
+      containers:
+      - name: backend-chatbox
+        image: lazyyy77/bc:3.5
+        # env:
+        # - name: SQL-PWD
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: m-secret
+        #       key: mysql-root-password
+        ports:
+        - containerPort: 8887

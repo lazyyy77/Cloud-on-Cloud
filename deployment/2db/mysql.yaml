@@ -1,0 +1,81 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: m-dep
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      nodeSelector:
+        nodegroup: BackEndGroup
+      containers:
+        - name: mysql
+          image: mysql:8.0.38
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: m-secret
+                  key: mysql-root-password
+          ports:
+            - containerPort: 3306
+          volumeMounts:
+            - name: mysql-persistent-storage
+              mountPath: /var/lib/mysql
+            - name: config-volume
+              mountPath: /etc/mysql/mysql.conf.d/mysql.cnf
+              subPath: mysql.cnf
+      volumes:
+        - name: mysql-persistent-storage
+          persistentVolumeClaim:
+            claimName: m-pvc
+        - name: config-volume
+          configMap:
+            name: m-config
+
+
+# apiVersion: apps/v1
+# kind: Deployment
+# metadata:
+#   name: m-dep
+# spec:
+#   replicas: 1
+#   selector:
+#     matchLabelAs:
+#       app: mysql
+#   template:
+#     metadata:
+#       labels:
+#         app: mysql
+#     spec:
+#       containers:
+#         - name: mysql
+#           image: mysql:8.0.38
+#           env:
+#             - name: MYSQL_ROOT_PASSWORD
+#               valueFrom:
+#                 secretKeyRef:
+#                   name: m-secret
+#                   key: mysql-root-password
+#           ports:
+#             - containerPort: 3306
+#           volumeMounts:
+#             - name: mysql-persistent-storage
+#               mountPath: /var/lib/mysql
+#             - name: config-volume
+#               mountPath: /etc/mysql/mysql.conf.d/mysql.cnf
+#               subPath: mysql.cnf
+#       volumes:
+#         - name: mysql-persistent-storage
+#           persistentVolumeClaim:
+#             claimName: m-pvc
+#         - name: config-volume
+#           configMap:
+#             name: m-config
+

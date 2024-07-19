@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bw-dep
+spec:
+  # replicas: 2
+  selector:
+    matchLabels:
+      app: backend-weather
+  template:
+    metadata:
+      labels:
+        app: backend-weather
+    spec:
+      nodeSelector:
+        nodegroup: BackEndGroup
+      containers:
+      - name: backend-weather
+        image: allenlion1923/weatherapp_backend:1.1
+        ports:
+        - containerPort: 8000
+        env:
+        - name: DB_NAME
+          value: "weather"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: m-secret
+              key: mysql-root-password
+        - name: DB_HOST
+          value: "m-svc"
+        - name: DB_PORT
+          value: "3306"
+        livenessProbe:
+          httpGet:
+            path: /health_check 
+            port: 8000  
+          initialDelaySeconds: 6000
+          periodSeconds: 60
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 3

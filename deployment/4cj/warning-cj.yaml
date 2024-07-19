@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: warning-cj
+spec:
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1
+  schedule: "*/10 * * * *"   # every 1 hour
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: warning-container
+            image: xrkkkt/docker_demo2:warninginfo
+            env:
+            - name: DB_HOST
+              value: "m-svc"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "12345678"
+            - name: DB_NAME
+              value: "weather"
+            imagePullPolicy: Always
+          restartPolicy: OnFailure

@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: f-dep
+spec:
+  # replicas: 3
+  selector:
+    matchLabels:
+      app: frontend
+  template:
+    metadata:
+      labels:
+        app: frontend
+    spec:
+      nodeSelector:
+        nodegroup: FrontEndGroup
+      containers:
+      - name: frontend
+        image: lazyyy77/fw-whole:1.3
+        ports:
+        - containerPort: 80
+        # env:
+        # - name: VUE_APP_BACKEND_URL
+        #   valueFrom:
+        #     configMapKeyRef:
+        #       name: conf-map
+        #       key: BACKEND_URL
