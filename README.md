@@ -25,7 +25,7 @@ It showcasing the current weather conditions, providing the outdoor tips, predic
 
 ### 1.2 System Architecture
 
-![structure](C:\Users\syp\Documents\GitHub\Cloud-on-Cloud\structure.png)
+![structure](structure.png)
 
 
 
