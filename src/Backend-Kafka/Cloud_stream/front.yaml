@@ -1,0 +1,33 @@
+# vue-deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: vue-frontend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: vue-frontend
+  template:
+    metadata:
+      labels:
+        app: vue-frontend
+    spec:
+      containers:
+      - name: vue-frontend
+        image:  xrkkkt/other:front1
+        ports:
+        - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: vue-frontend-service
+spec:
+  selector:
+    app: vue-frontend
+  ports:
+  - protocol: TCP
+    port: 80
+    targetPort: 80
+  type: ClusterIP

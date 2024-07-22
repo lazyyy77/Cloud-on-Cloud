@@ -1,0 +1,48 @@
+# k8s-flask-app.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: flask-app-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: flask-app
+  template:
+    metadata:
+      labels:
+        app: flask-app
+    spec:
+      containers:
+      - name: flask-app
+        image: xrkkkt/docker_demo2:stream
+        ports:
+        - containerPort: 5001
+        env:
+        - name: DB_HOST
+          value: "your-db-host"  # 更新为你的数据库主机地址
+        - name: DB_USER
+          value: "your-db-user"  # 更新为你的数据库用户名
+        - name: DB_PASSWORD
+          value: "your-db-password"  # 更新为你的数据库密码
+        - name: DB_NAME
+          value: "your-db-name"  # 更新为你的数据库名称
+        - name: DB_PORT
+          value: "3306"  # 更新为你的数据库端口
+        - name: KAFKA_HOST
+          value: " 10.100.21.75:9092"  # 更新为你的kafka主机地址
+        - name: KAFKA_TOPIC
+          value: "kafka-controller-0"  # 更新为你的kafka主题
+        imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: flask-app-service
+spec:
+  type: LoadBalancer
+  ports:
+  - port: 80
+    targetPort: 5001
+  selector:
+    app: flask-app

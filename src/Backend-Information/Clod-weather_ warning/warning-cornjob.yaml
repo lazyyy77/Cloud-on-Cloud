@@ -1,0 +1,28 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: warning-cronjob
+spec:
+  successfulJobsHistoryLimit: 0
+  failedJobsHistoryLimit: 1 
+  schedule: "0 */6 * * *"   # 每6小时执行一次
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: warning-container
+            image: xrkkkt/docker_demo2:warninginfo
+            env:
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: DB_PORT
+              value: "3306"
+            - name: DB_USER
+              value: "root"
+            - name: DB_PASSWORD
+              value: "23Liang02291515!"
+            - name: DB_NAME
+              value: "weather"
+            imagePullPolicy: Always
+          restartPolicy: OnFailure
