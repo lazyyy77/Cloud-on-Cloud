@@ -38,7 +38,7 @@ Run the commands under the deployment folder
     - execute `python manage.py makemigrations`
     - execute `python manage.py migrate`
 + bcdep.yaml -- deployment -- backend-chatbox
-  - `kubectl apply -f ./3be/bwdep.yaml`
+  - `kubectl apply -f ./3be/bcdep.yaml`
   - `kubectl autoscale deployment bc-dep --cpu-percent=50 --min=1 --max=5`
 
 ## Jobs

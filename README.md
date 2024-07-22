@@ -2,10 +2,12 @@
 
 Team Member:
 
-- Student 1: [Liang Wenjie], [].
-- Student 2: [Jiang Guanyu], [].
-- Student 3: [Shen Yipeng], [20240920].
-- Student 4: [Xu Ruikang], [].
+- Student 1: [Liang Wenjie], [t0933438@u.nus.edu], [allenlion1923@gmail.com], github: lonilow.
+- Student 2: [Jiang Guanyu], [t0933423@u.nus.edu], [3220104991@zju.edu.cn], github: DjangoJungle.
+- Student 3: [Shen Yipeng], [t0933846@u.nus.edu], [3220101827@zju.com], github: lazyyy77.
+- Student 4: [Xu Ruikang], [t0933511@u.nus.edu], [3220105566@zju.edu.cn], github: xrkkkt.
+
+
 
 ## 1. Project Overview
 
